@@ -27,23 +27,20 @@ int minMeetingRooms(vector<Interval>& intervals){
     return a.start < b.start;
   });
   int room(0);
-  int current_interval = { 0, 0 };
+  int current_interval[2] = { intervals[0].start, intervals[0].end };
   for (int i = 0; i < intervals.size() - 1; ++i) {
-      if (intervals[i].end <= intervals[i + 1].start)
-          continue;
-      else {
-          if (intervals[i + 1].start < current_interval[1])
-              room++;
-
-          current_interval[0] = intervals[i + 1].start;
-      }
+      if (intervals[i + 1].start < current_interval[1])
+        room++;
+      
+      current_interval[0] = intervals[i + 1].start;
+      current_interval[1] = intervals[i].end;
   }
   return room;
 }
 
 int main(){
-//[[0, 30],[5, 10],[15, 20]],
-
+  //[[0, 30],[5, 10],[15, 20]],
+  
   vector<Interval> v {Interval(0, 30), Interval(5, 10), Interval(15, 20)};
   cout << canAttendMeetings(v) << endl;
   cout << minMeetingRooms(v) << endl;
