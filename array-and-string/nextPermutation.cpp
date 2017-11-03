@@ -1,44 +1,52 @@
-//https://leetcode.com/problems/next-permutation/
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
+
+int findJustGreater(vector<int>& num, int a){
+  // returns an index of an elem ranged (a:end) that is just greater than num[a]
+  int current = 10; // because current can only be a single digit
+  int idx = a;
+  for (int i = a+1; i < num.size(); ++i){
+    if (num[i] < num[a])
+      continue;
+    else
+      if (num[i] < current){
+        current = num[i];
+        idx = i;
+      }
+  }
+  return idx;
+}
+
+
 void nextPermutation(vector<int>& num){
-  auto it = end(num) - 1; // point to the last elem
-  while (it > begin(num)){
-    if (*it > *(it - 1)){
-      it--;
+  // iterate right to left
+  // when elem decreases, swap that elem with one of the elem on the right that's just greater
+  for (int i = num.size() - 1; i > 0; --i){ // compare [i-1] < [i]
+    if (num[i-1] < num[i]){
+      int justGreater = findJustGreater(num, i-1);
+      iter_swap(begin(num)+i-1, begin(num)+justGreater);
       break;
     }
-    it--;
+    if (i == 1)
+      reverse(begin(num), end(num));
   }
-  if (it == begin(num))
-    reverse(begin(num), end(num));
-  int current_min = 10;
-  int n = *it;
-  auto ans = it;
-  for (auto it2 = it+1; it2 != end(num); ++it2){
-    if (*it2 > n && *it2 < current_min){
-      current_min = *it2;
-      ans = it2;
-    }
-  }
-  iter_swap(it, ans);
-  //cout << *it << endl;
 }
 
 int main(){
-  vector<int> test1 {4,3,2,4,3,2,1};
-  //nextPermutation(test1); //should print out 2
-  vector<int> test2{3,2,1};
-  nextPermutation(test2);
-//  for (auto i : test2)
-//    cout << i << " "; // 1,2,3
+  vector<int> v1{1,2,3};
+  vector<int> v2{3,2,1};
+  vector<int> v3{1,1,5};
   
-  nextPermutation(test1);
-  for (auto j : test1)
-    cout << j << " "; //4 3 3 4 2 2 1
+  nextPermutation(v1);
+  nextPermutation(v2);
+  nextPermutation(v3);
+  
+  for (auto e : v3)
+    cout << e <<" ";
+  
   return 0;
 }
+

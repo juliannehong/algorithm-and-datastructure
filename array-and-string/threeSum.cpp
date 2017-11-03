@@ -1,5 +1,4 @@
 //https://leetcode.com/problems/3sum/description/
-
 #include <iostream>
 #include <vector>
 #include <algorithm> //sort
@@ -21,8 +20,8 @@ vector<vector<int>> threeSum(vector<int>& nums){
         ++a;
       // exactly 0 -> push_back to result
       else{
-        vector<int> v {nums[i], nums[a], nums[b]};
-        result.push_back(v);
+        //vector<int> v {nums[i], nums[a], nums[b]};
+        result.push_back({nums[i], nums[a], nums[b]});
         break;
       }
     }
