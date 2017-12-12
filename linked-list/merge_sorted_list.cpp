@@ -8,8 +8,8 @@ struct ListNode{
 };
 
 ListNode* merge_sorted_linked_lists(ListNode* l1, ListNode* l2){
-  ListNode* dummy = new ListNode;
-  auto tail = dummy;
+  ListNode dummy;;
+  auto tail = &dummy;
   while (l1 != nullptr && l2 != nullptr){
     if (l1->data < l2->data){
       tail->next = l1;
@@ -22,9 +22,7 @@ ListNode* merge_sorted_linked_lists(ListNode* l1, ListNode* l2){
     tail = tail->next;
   }
   tail->next =  l1 ? l1 : l2;
-  auto result = dummy->next;
-  delete dummy;
-  return result;
+  return dummy.next;
 }
 
 int main(){
