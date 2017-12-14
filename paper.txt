@@ -1,0 +1,19 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string add_binary(string a, string b){
+  string re;
+  int i = a.size(), j = b.size();
+  bool carry = false;
+  while (-- i >= 0|| --j >= 0){
+    int temp = 0;
+    if (i >= 0)
+      temp += a[i] - '0';
+    if (j >= 0)
+      temp += b[j] - '0';
+    temp += carry;
+    (temp == 1 || temp == 3) ? re += '1' : re += '0';
+    
+  }
+}
