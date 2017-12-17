@@ -19,6 +19,24 @@ void printInOrder(Node* node){
   
 }
 
+Node* clone_tree(const Node*& original){
+  return original ? new Node{original->data, clone_tree(original->left), clone_tree(original->right)} : nullptr;
+}
+
+
+void BFS (Node* root){
+  queue<Node*> q;
+  q.push(root);
+  while (!q.empty()){
+    auto current = q.front();
+    cout << current->data << endl;
+    q.pop();
+    if(current->left)
+      q.push(current->left);
+    if (current->right)
+      q.push(current->right);
+  }
+}
 
 int main(){
   Node* root = new Node(8);

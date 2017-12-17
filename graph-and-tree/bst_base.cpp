@@ -36,6 +36,20 @@ void bst_print(Node* root){
   bst_print(root->right);
 }
 
+void BFS (Node* root){
+  queue<Node*> q;
+  q.push(root);
+  while (!q.empty()){
+    auto current = q.front();
+    cout << current->data << endl;
+    q.pop();
+    if(current->left)
+      q.push(current->left);
+    if (current->right)
+      q.push(current->right);
+  }
+}
+
 int main(){
   Node* root = new Node{2, nullptr};
   root->left = new Node{1, nullptr};

@@ -48,13 +48,9 @@ void bfs_queue(int src, const unordered_map<int, unordered_set<int>>& graph){
     visited[src] = true;
     for (auto n : graph.at(src)){
       if (!visited[n])
-      {
         q.push(n);
-        cout << "pushed: " << n << endl;
-      }
     }
   }
-  cout << endl;
 }
 
 int main(){
