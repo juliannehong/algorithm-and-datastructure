@@ -10,6 +10,7 @@ void swap(int& x, int& y){
 
 void insertion_sort(vector<int>& v){
   for (int i = 1; i < v.size(); ++i){
-    
+     // while
+     // temp do i need!
   }
 }
