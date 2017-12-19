@@ -23,14 +23,14 @@ void dfs_recursive(int src, vector<bool>* visited_ptr, const unordered_map<int, 
 void dfs_stack(int src, const unordered_map<int, unordered_set<int>>& graph){
   stack<int> st;
   st.push(src);
-  vector<bool> visited(graph.size(), false);
+  vector<bool> queued(graph.size(), false);
   while(!st.empty()){
     src = st.top();
     st.pop();
     cout << src << " ";
-    visited[src] = true;
+    queued[src] = true;
     for (auto n : graph.at(src)){
-      if (!visited[n])
+      if (!queued[n])
         st.push(n);
     }
   }

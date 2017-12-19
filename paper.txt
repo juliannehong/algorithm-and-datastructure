@@ -1,7 +1,15 @@
-// element of programming interviews 18.7 
+// sorting algorithms
 #include <iostream>
 using namespace std;
 
-int transform_one_string_to_another(unordered_set<string> D, const string& s, const string& t){
+void swap(int& x, int& y){
+  int temp = x;
+  x = y;
+  y = temp;
+}
 
+void insertion_sort(vector<int>& v){
+  for (int i = 1; i < v.size(); ++i){
+    
+  }
 }
