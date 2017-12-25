@@ -1,51 +1,50 @@
-// https://leetcode.com/problems/valid-sudoku/description/
+// https://leetcode.com/problems/longest-absolute-file-path/description/
 #include <iostream>
+#include <unordered_map>
 #include <vector>
+#include <string>
 using namespace std;
 
-
-bool check_sub_mat(int r, int c, const vector<vector<char>>& board){
-  vector<vector<int>> shifts = {{-1,-1}, {-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
-  vector<bool> visited(9, false);
-  visited[board[r][c] - '0'] = true;
-  for (auto shift : shifts){
-    int current = board[r+shift[0]][c+shift[1]] - '0';
-    (visited[current]) ? return false : visited[current] = true;
+pair<int, int> get_level(const string& input, int index){
+  // index points to n
+  // \n\t\t -> 2
+  int level = 0;
+  while(input[index] != '\' || input[index] != 't'){
+    if (input[index] == 't')
+      level++;
+    input++
   }
-  return true;
+  return make_pair(level, input);
 }
 
-bool is_valid_sudoku(vector<vector<char>>& board) {
-  // validate each row
-  for (int i = 0; i < 9; ++i){
-    vector<bool> visited(9, false);
-    for (int j = 0; j < 9; ++j){
-      if (board[i][j] != "."){
-        int current = board[i][j] - '0' - 1;
-        (visited[current]) ? return false : visited[current] = true;
-      }
-    }
-  }
 
-  // validate each column
-  for (int i = 0; i < 9; ++i){
-    vector<bool> visited(9, false);
-    for (int j = 0; j < 9; ++j){
-      if (board[j][i] != "."){
-        int current = board[i][j] - '0' - 1;
-        (visited[current]) ? return false : visited[current] = true;
-      }
-    }
-  }
 
-  // validate 3x3
-  for (int i = 1; i < 4; ++i){
-    int current_r = 3*i - 2;
-    for (int j = 1; j < 4; ++j){
-      int current_c = 3*j - 2;
-      if (!check_sub_mat(current_r, current_c, board))
-        return false;
+int length_longest_path(const string& input){
+  int max_length = 0;
+  unordered_map<int, string> m;
+  int index = 0;
+  string current_str = "";
+  while(input[index] != '\'){
+    current_str += input[index];
+    index++;
+  }
+  pair<int, int> current_level = make_pair(0,index);
+  bool is_file = false;
+  for (int i = index; i < input.size(); ++i){
+    if (input[i] == 'n' && input[i-1] = '\'){
+      // store previous path
+      m[current_level.first] = current_str;
+      max_length = (is_file) ? max(max_length, current_str);
+
+      current_level = get_level(input, i);
+      i = current_level.second;
+      current_str = m[current_level.first-1]; 
+    }
+    else if (input[i] != '\'){
+      current_str += input[i];
+      if (input[i] == '.')
+        is_file = true;
     }
   }
-  return true;
+  return max_length;
 }
