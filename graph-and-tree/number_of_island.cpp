@@ -5,7 +5,7 @@
 using namespace std;
 
 bool is_root(int r, int c, const vector<vector<char>>& grid){
-  return r < grid.size() && c < grid[0].size() && grid[r][c] == '1';
+  return r >= 0 && r < grid.size() && c < grid[0].size() && c >= 0 && grid[r][c] == '1';
 }
 
 void dfs(int r, int c, vector<vector<char>>* grid_ptr){
