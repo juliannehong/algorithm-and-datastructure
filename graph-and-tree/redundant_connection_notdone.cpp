@@ -8,6 +8,8 @@
 #include <algorithm>
 using namespace std;
 
+// failed testcase: [[1,2],[1,3],[2,3]]
+
 unordered_map<int, unordered_set<int>> get_new_graph(const unordered_map<int, unordered_set<int>>& graph, vector<int> edge_to_remove) {
   unordered_map<int, unordered_set<int>> new_graph = graph;
   new_graph[edge_to_remove[0]].erase(edge_to_remove[1]);
