@@ -10,13 +10,14 @@ struct TreeNode{
   TreeNode(int x)  : val(x), left(nullptr), right(nullptr){}
 };
 
-TreeNode* invertTree(TreeNode* node){
+TreeNode* invert_tree(TreeNode* node){
   // basecase
   if (node == nullptr)
     return nullptr;
-  TreeNode* newNode = new TreeNode(node->val);
-  newNode->left = invertTree(node->right);
-  newNode->right = invertTree(node->left);
-  return newNode;
+  TreeNode* temp = node->left;
+  node->left = invert_tree(node->right);
+  node->right = invert_tree(temp);
+  return node;
 }
+
 

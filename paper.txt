@@ -1,50 +1,31 @@
-// https://leetcode.com/problems/longest-absolute-file-path/description/
+// https://leetcode.com/problems/trapping-rain-water/description/
 #include <iostream>
-#include <unordered_map>
 #include <vector>
-#include <string>
 using namespace std;
 
-pair<int, int> get_level(const string& input, int index){
-  // index points to n
-  // \n\t\t -> 2
-  int level = 0;
-  while(input[index] != '\' || input[index] != 't'){
-    if (input[index] == 't')
-      level++;
-    input++
+int get_water(const vector<int>& height, int from, int to, int h){
+  int result = 0;
+  for (int i = from; i <= to; ++i){
+    result += (h - height[i]);
   }
-  return make_pair(level, input);
+  return result;
 }
 
-
-
-int length_longest_path(const string& input){
-  int max_length = 0;
-  unordered_map<int, string> m;
-  int index = 0;
-  string current_str = "";
-  while(input[index] != '\'){
-    current_str += input[index];
-    index++;
-  }
-  pair<int, int> current_level = make_pair(0,index);
-  bool is_file = false;
-  for (int i = index; i < input.size(); ++i){
-    if (input[i] == 'n' && input[i-1] = '\'){
-      // store previous path
-      m[current_level.first] = current_str;
-      max_length = (is_file) ? max(max_length, current_str);
-
-      current_level = get_level(input, i);
-      i = current_level.second;
-      current_str = m[current_level.first-1]; 
+int trap(const vector<int>& height){
+  int left = 0, right = 0, result = 0;
+  while (left <= right && right < height.size() - 1){
+    if (height[right] > height[right+1]){
+      int h = min(height[left], height[right]);
+      result += get_water(height, left+1, right-1, h);
+      left = right;
     }
-    else if (input[i] != '\'){
-      current_str += input[i];
-      if (input[i] == '.')
-        is_file = true;
-    }
+    right++;
   }
-  return max_length;
+  if (height[height.size()-1] > height[right]){
+    int h = min(height[left], height[height.size()-1]);
+    result += get_water(height, left+1, right, h);
+  }
+  else;
+  return result;
 }
+
