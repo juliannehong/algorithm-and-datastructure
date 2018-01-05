@@ -20,7 +20,7 @@ int min_path_sum(vector<vector<int>>& grid) {
 	}
 
 	for (int i = 1; i < R; ++i) {
-		for (int j = ; j < C; ++j) {
+		for (int j = 1; j < C; ++j) {
 			min_cost_grid[i][j] = min(min_cost_grid[i - 1][j], min_cost_grid[i][j - 1]) + grid[i][j];
 		}
 	}
