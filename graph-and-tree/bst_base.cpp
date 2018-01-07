@@ -18,14 +18,78 @@ Node* bst_search(Node* root, int key){
   }
 }
 
-void bst_insert(Node* root, int key){
-  Node* dummy = root;
-  while (dummy != nullptr){
-    dummy = (key < dummy->data) ? dummy->left : dummy->right;
-    if (dummy != nullptr)
-      cout << dummy->data << endl;
+bool bst_insert(Node* root, int key){
+  if (root == nullptr){
+    root = new Node{key, nullptr, nullptr};
+    return true;
   }
-  dummy = new Node {key, nullptr, nullptr}; // can i not do this?
+  Node* dummy = root;
+  Node* parent = nullptr;
+  while (dummy != nullptr){
+    parent = dummy; // to keep track of dummy's parent
+    if (key == dummy->data)
+      return false;
+    else if (key > dummy->data){
+      dummy = dummy->right;
+    }
+    else{
+      dummy = dummy->left;
+    }
+  }
+  
+  if (parent->data > key)
+    parent->left = new Node{key, nullptr, nullptr};
+  
+  if (parent->data < key)
+    parent->left = new Node{key, nullptr, nullptr};
+  
+  return true;
+}
+
+bool bst_delete(Node* root, int key){
+  Node* del_parent = nullptr; // keep track of the parent node of to be deleted node
+  Node* del_node = root; // pointer to the node that will be deleted
+  while (del_node != nullptr && del_node->data != key){
+    del_parent = del_node;
+    del_node = (del_node->data > key) ? del_node->left : del_node->right;
+  }
+  if (del_node == nullptr)
+    return false; // no corresponding key exists
+  
+  // now that we found node to be deleted, we will find node to be substitute
+  
+  // if the deleted node has right subtree, replace with the minimim key from right subtree
+  if (del_node->right != nullptr){
+    Node* sub = del_node->right;
+    Node* sub_parent = del_node;
+    while (sub->left != nullptr){ // remember why this isn't sub != nullptr;
+      sub_parent = sub;
+      sub = sub->left;
+    }
+    del_node->data = sub->data;
+    if (sub_parent->right == sub){ // if sub didn't have any left subtree
+      sub_parent->right = sub->right;
+    }
+    else{
+      sub_parent->left = sub->right;
+    }
+  }
+  
+  // if the deleted node has NO right subtree, replace with
+  else{
+    if (del_node == root){
+      root = root->left;
+    }
+    else{
+      if (del_parent->right == del_node){
+        del_parent->right = del_node->left;
+      }
+      else{
+        del_parent->left = del_node->left;
+      }
+    }
+  }
+  return true;
 }
 
 void bst_print(Node* root){
