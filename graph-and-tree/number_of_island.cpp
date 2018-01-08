@@ -24,21 +24,22 @@ void bfs(int r, int c, vector<vector<char>>* grid_ptr){
   queue<pair<int,int>> q;
   const vector<vector<int>> shifts {{-1,0}, {1,0}, {0,-1}, {0,1}};
   q.push(make_pair(r, c));
+  grid[r][c] = '0';
   while (!q.empty()){
     auto current = q.front();
     q.pop();
-    grid[current.first][current.second] = '0';
     for (auto shift : shifts){
-      if (is_root(current.first+shift[0], current.second+shift[1], grid))
+      if (is_root(current.first+shift[0], current.second+shift[1], grid)){
         q.push(make_pair(current.first + shift[0],current.second+shift[1]));
+        grid[current.first + shift[0]][current.second+shift[1]] = '0';
+      }
     }
   }
-  
 }
 
 int num_islands_dfs(vector<vector<char>>& grid) {
   int re = 0;
-  for (int r = 0; r < grid.size(); +å+r){
+  for (int r = 0; r < grid.size(); ++r){
     for (int c = 0; c < grid[0].size(); ++c){
       if (is_root(r, c, grid)){
         dfs(r, c, &grid);
