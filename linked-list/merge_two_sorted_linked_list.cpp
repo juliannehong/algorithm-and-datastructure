@@ -8,7 +8,7 @@ struct ListNode{
 };
 
 ListNode* merge_sorted_linked_lists(ListNode* l1, ListNode* l2){
-  ListNode dummy;;
+  ListNode dummy;
   auto tail = &dummy;
   while (l1 != nullptr && l2 != nullptr){
     if (l1->data < l2->data){
