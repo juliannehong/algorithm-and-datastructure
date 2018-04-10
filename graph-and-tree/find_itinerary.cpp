@@ -12,9 +12,6 @@ using namespace std;
 
 vector<string> find_itinerary(vector<pair<string, string>> tickets) {
   vector<string> re;
-  //auto lexical = [](string left, string right){return left > right;};
-  //typedef priority_queue<string, vector<string>, decltype(lexical)> pq(lexical);
-  //unordered_map<string, priority_queue<string, vector<string>, decltype(lexical)>> graph(lexical);
   unordered_map<string, priority_queue<string>> graph;
   for (auto ticket : tickets)
     graph[ticket.first].push(ticket.second);

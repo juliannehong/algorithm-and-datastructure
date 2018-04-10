@@ -1,0 +1,8 @@
+{
+  "editor.tabSize": 2,
+  "files.associations": {
+    "iostream": "cpp",
+    "algorithm": "cpp",
+    "unordered_set": "cpp"
+  }
+}
