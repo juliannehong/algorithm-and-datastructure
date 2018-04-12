@@ -2,44 +2,44 @@
 #include <iostream>
 using namespace std;
 
-struct ListNode{
+struct ListNode {
   int val;
   ListNode* next;
-  ListNode(int x): val(x), next(nullptr){}
+  ListNode(int x) : val(x), next(nullptr) {}
 };
 
-ListNode* reverseList(ListNode* head) {
-  ListNode* current = head;
-  ListNode* forward_1 = head->next;
-  ListNode* forward_2 = head->next->next;
+ListNode* reverse_list(ListNode* head) {
 
-  while (forward_2 != nullptr){
-    forward_1->next = current;
-    current = forward_1;
-    forward_1 = forward_2;
-    forward_2 = forward_2->next;
+  ListNode* prev_node = nullptr;
+  ListNode* curr_node = head;
+
+  while (curr_node != nullptr) {
+    ListNode* next_node = curr_node->next;
+    curr_node->next = prev_node;
+    prev_node = curr_node;
+    curr_node = next_node;
   }
-  forward_1->next = current;
-  return forward_1;
+  return prev_node;
 }
 
-void print_linkedlist(ListNode* head){
-  while (head != nullptr){
+void print_linkedlist(ListNode* head) {
+  while (head != nullptr) {
     cout << head->val << "->";
     head = head->next;
   }
   cout << endl;
 }
 
-int main(){
+int main() {
   ListNode* head = new ListNode(1);
   head->next = new ListNode(2);
   head->next->next = new ListNode(3);
   head->next->next->next = new ListNode(4);
   head->next->next->next->next = new ListNode(5);
   print_linkedlist(head);
-  ListNode* ans = reverseList(head);
+  ListNode* ans = reverse_list(head);
   print_linkedlist(ans);
-  
+
+  system("pause");
   return 0;
 }
