@@ -1,45 +1,46 @@
-// https://leetcode.com/problems/reverse-linked-list/description/
+//https://leetcode.com/problems/find-pivot-index/description/
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
-struct ListNode{
-  int val;
-  ListNode* next;
-  ListNode(int x): val(x), next(nullptr){}
-};
-
-ListNode* reverseList(ListNode* head) {
-  ListNode* current = head;
-  ListNode* forward_1 = head->next;
-  ListNode* forward_2 = head->next->next;
-
-  while (forward_2 != nullptr){
-    forward_1->next = current;
-    current = forward_1;
-    forward_1 = forward_2;
-    forward_2 = forward_2->next;
+int pivot_index(vector<int>& nums) {
+  if (nums.size() == 0)
+    return -1;
+  int total_sum(0), left_sum, right_sum;
+  for (auto elem : nums)
+    total_sum += elem;
+  left_sum = 0;
+  right_sum = total_sum - nums[0];
+  if (right_sum == left_sum)
+    return 0;
+  for (int i = 1; i < nums.size(); i++){
+    left_sum += nums[i-1];
+    right_sum -= nums[i];
+    if (right_sum == left_sum)
+      return i;
   }
-  forward_1->next = current;
-  return forward_1;
+  return -1;   
 }
 
-void print_linkedlist(ListNode* head){
-  while (head != nullptr){
-    cout << head->val << "->";
-    head = head->next;
-  }
-  cout << endl;
-}
+int main() {
+  vector<int> t1{1, 7, 3, 6, 5, 6};
+  vector<int> t2{};
+  vector<int> t3{2};
+  vector<int> t4{-1, -1, -1, -1, -1, 0};
+  vector<int> t5{-1, -1, -1, 0, 1, 1};
+  vector<int> t6{-1,-1,-1,0,1,1};
 
-int main(){
-  ListNode* head = new ListNode(1);
-  head->next = new ListNode(2);
-  head->next->next = new ListNode(3);
-  head->next->next->next = new ListNode(4);
-  head->next->next->next->next = new ListNode(5);
-  print_linkedlist(head);
-  ListNode* ans = reverseList(head);
-  print_linkedlist(ans);
-  
+  cout << pivot_index(t1) << endl;
+  cout << pivot_index(t2) << endl;
+  cout << pivot_index(t3) << endl;
+  cout << pivot_index(t4) << endl;
+  cout << pivot_index(t6) << endl;
+
   return 0;
 }
+//
+//[1, 7, 3, 6, 5, 6]
+//[]
+//[-1, -1, -1, -1, -1, 0]
+//[-1, -1, -1, 0, 1, 1]

@@ -4,6 +4,7 @@
     "iostream": "cpp",
     "algorithm": "cpp",
     "unordered_set": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "ios": "cpp"
   }
 }

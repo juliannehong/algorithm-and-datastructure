@@ -10,10 +10,9 @@ struct TreeNode{
   TreeNode(int x)  : val(x), left(nullptr), right(nullptr){}
 };
 
-int maxDepth(TreeNode* node){
-  // basecase
+int tree_max_depth(TreeNode* node){
   if (node == nullptr)
     return 0;
-  return max(maxDepth(node->left), maxDepth(node->right)) + 1;
+  return max(tree_max_depth(node->left), tree_max_depth(node->right)) + 1;
 }
 
