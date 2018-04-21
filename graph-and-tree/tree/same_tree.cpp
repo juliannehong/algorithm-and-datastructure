@@ -1,6 +1,5 @@
 // https://leetcode.com/problems/same-tree/description/
 #include <iostream>
-#include <vector>
 using namespace std;
 
 struct TreeNode {
@@ -10,23 +9,13 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-void tree_to_vector(TreeNode* t, vector<int>& tree_vector){
-  //auto tree_vector = *tree_vector_ptr;
-  if (t == nullptr){
-    tree_vector.push_back(NULL);
-    return ;
-  }
-  tree_vector.push_back(t->val);
-  tree_to_vector(t->left, tree_vector);
-  tree_to_vector(t->right, tree_vector);
-}
 
-bool is_same_tree(TreeNode* p, TreeNode* q){
-  vector<int> p_vector;
-  vector<int> q_vector;
-  tree_to_vector(p, p_vector);
-  tree_to_vector(q, q_vector);
-  return p_vector == q_vector;
+bool is_same_tree(TreeNode* r1, TreeNode* r2){
+  if (r1 == nullptr && r2 == nullptr)
+    return true;
+  if (r1 == nullptr || r2 == nullptr)
+    return false;
+  return (r1->val == r2->val && is_same_tree(r1->left, r2->left) && is_same_tree(r1->right, r2->right));
 }
 
 int main(){
