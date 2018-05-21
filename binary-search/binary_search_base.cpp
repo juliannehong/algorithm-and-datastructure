@@ -3,10 +3,10 @@
 #include <vector>
 using namespace std;
 
-int BinarySearchRecursive(const vector<int>& v, int s, int start, int end){
+int bsearch_recursive(const vector<int>& v, int s, int start, int end){
   if (v.empty() || start > end)
     return -1;
-  int mid = (start + end) / 2;
+  int mid = start + (start - end) / 2;
   if (v[mid] == s)
     return mid;
   else if (v[mid] > s)
@@ -15,9 +15,17 @@ int BinarySearchRecursive(const vector<int>& v, int s, int start, int end){
     return BinarySearchRecursive(v, s, mid+1, end);
 }
 
-int main(){
-  vector<int> v{2, 3, 4, 10, 40};
-  cout << BinarySearchRecursive(v, 50, 0, 4) << endl;
-  
-  return 0;
+int bsearch_iterative(vector<int>& nums, int target){
+  int l = 0, u = nums.size() - 1;
+  while (l <= u){
+    int m = l + (u - l) / 2;
+    if (target == nums[m])
+      return m;
+    else if (target < nums[m])
+      u = m-1;
+    else 
+      l = m+1;
+  }
+  return -1;
 }
+
