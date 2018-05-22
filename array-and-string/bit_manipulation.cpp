@@ -19,14 +19,15 @@ using namespace std;
 
 // }
 
-void print_by_bits(int num){
-    bitset<32> x(num);
+void print_by_bits(int num){ 
+    bitset<8> x(num);
     cout << x << endl;
 }   
 
-int main(){
-    int x = 0x110011;
+int main(){ 
+    int x = 15;
     //cout << x<<1 << endl;
+    x >>= 3;
     print_by_bits(x);
     return 0;
     
