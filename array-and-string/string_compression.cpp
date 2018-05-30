@@ -1,67 +1,36 @@
+// https://leetcode.com/problems/string-compression/description/
 #include <iostream>
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <set>
+#include <unordered_map>
 using namespace std;
 
-int string_compression(vector<char>& chars){
-  int count = 1, index = 0;
-  for (int i = 1; i < chars.size(); ++i){
-    if (chars[i] != chars[i-1]){
-      chars[index++] = chars[i-1];
-      if (count > 1){
-        string s = to_string(count);
-        for (auto c : s){
-          chars[index++] = c;
-        }
-      }
-      count = 1;
-    }
-    else{
-      count++;
-    }
-  }
-  chars[index++] = chars[chars.size()-1];
-  if (count > 1){
-    string s = to_string(count);
-    for (auto c : s){
-      chars[index++] = c;
-    }
-  }
-  return index;
-}
+// ["a","b","b","b","b","b","b","b","b","b","b","b","b"] => ["a","b","1","2"] => 4
 
-int string_compression_improved(vector<char>& chars){
-  int index = 0;
-  for (int l = 0, r = 0; r < chars.size(); ++r){
-    if (chars[r] != chars[r+1] || r == chars.size() - 1){
-      chars[index++] = chars[l];
-      if (r - l > 0) {
-        string str = to_string(r - l + 1);
-        for (auto s : str)
-          chars[index++] = s;
-      }
-      l = r+1;
-    }
+// ["a"] => ["a"] => 1
+
+// ["a","a","b","b","c","c","c"] => ["a","2","b","2","c","3"] => 6
+int number_of_digits(int n){
+  int result = 0;
+  while (n != 0){
+    n /= 10;
+    result += 1;
   }
-  return index;
+  return result;
 }
+// int compress_bf(vector<char>& chars){
+//   // hash mpa
+//   // everytime the char change, put into return map
+//   int result = 0;
+//   char c = "0";
+//   for (int i = 0; i < chars.size(); i++){
+//     if (chars[i] != c){
+      
+//     }
+//   }
+// }
 
 int main(){
-  
-//  vector<char> test {'a','a','b','b','c','c','c'};
-//  string_compression(test);
-//  for (auto elem : test){
-//    cout << elem << endl;
-//  }
-  
-  vector<char> test1 {'a','b','b','b','b','b','b','b','b','b','b','b','b'};
-  vector<char> test2 {'a','a','b','b','c','c','c'};
-  cout << string_compression_improved(test2) << endl;;
-  for (auto elem : test2){
-    cout << elem << endl;
-  }
-  
-  return 0;
+  cout << number_of_digits()
 }

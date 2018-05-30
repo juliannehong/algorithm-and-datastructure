@@ -1,11 +1,7 @@
 #include <iostream>
 using namespace std;
 
-struct Node {
-  int data;
-  Node* left;
-  Node* right;
-};
+vs
 
 Node* bst_search(Node* root, int key){
   if (root->data == key || root == nullptr)

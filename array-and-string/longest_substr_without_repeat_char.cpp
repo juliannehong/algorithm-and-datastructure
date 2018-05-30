@@ -6,35 +6,49 @@
 
 using namespace std;
 
-int max_char_without_repeat(const string& s){
-
-  if (s.size() == 0){
-    return -1;
-  }
-
-  unordered_set<char> m;
-  int max_len = 0;
-  int fast = 0, slow = 0;
-
-  while ((slow <= fast) && (fast < s.size())){
-    if (m.find(s[fast]) == m.end()){
-      m.insert(s[fast]);
-      max_len = max(max_len, fast-slow+1);
-      fast++;
-    }else{
-      m.erase(s[slow]);
-      slow++;
+int longest_substr_wo_repeating_char_bf(const string& str){
+  int result = 0;
+  for (int i = 0; i < str.size(); i++){
+    unordered_set<char> cs;
+    for (int j = i + 1; j < str.size(); j++){
+      if (cs.find(str[j]) != cs.end()){
+          result = max(result, static_cast<int>(cs.size()));
+          break;
+        }
+        else{
+            cs.insert(str[j]);
+        }
+      }   
+    }
+    return result;
+}
+// abcabcbb
+int longest_substr_wo_repeating_char_two_ptr(const string& str){
+  int result = 0, left = 0, right = 0;
+  unordered_set<char> cs;
+  while (left <= right){
+    if (cs.find(str[right]) != cs.end()){
+      result = max(result, right - left);
+      cs.erase(str[left++]);
+    }
+    else{
+      cs.insert(str[right++]);
     }
   }
-  return max_len;
+  return result;
 }
+
+
 
 int main(){
   string t1 = "abcabcbb";
   string t2 = "bbbbb";
   string t3 = "pwwkew";
-  cout << max_char_without_repeat(t1) << endl;
-  cout << max_char_without_repeat(t2) << endl;
-  cout << max_char_without_repeat(t3) << endl;
+  string t4 = "";
+  cout << longest_substr_wo_repeating_char_two_ptr(t1) << endl;
+  cout << longest_substr_wo_repeating_char_two_ptr(t2) << endl;
+  cout << longest_substr_wo_repeating_char_two_ptr(t3) << endl;
+  cout << longest_substr_wo_repeating_char_two_ptr(t4) << endl;  
+  
   return 0;
 }
