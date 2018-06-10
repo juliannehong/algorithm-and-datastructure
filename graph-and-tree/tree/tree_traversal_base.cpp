@@ -116,7 +116,7 @@ void postorder_iterative(TreeNode* root){
 }
 
 
-void bfs_iterative(TreeNode* root){
+void bfs_iterative_one_queue(TreeNode* root){ // can't track of the level
   if (root == nullptr)
     return ;
   queue<TreeNode*> q;
@@ -129,6 +129,34 @@ void bfs_iterative(TreeNode* root){
       q.push(current->left);
     if (current->right != nullptr)
       q.push(current->right);
+  }
+}
+
+void bst_two_queues(TreeNode* root){ // can track of the level
+  if (root == nullptr)
+    return ;
+  queue<TreeNode*> q1, q2;
+  q1.push(root);
+  while (!q1.empty() || !q2.empty()){
+    while (!q1.empty()){
+      TreeNode* temp = q1.front();
+      q1.pop();
+      cout << temp->val << endl;
+      if (temp->left != nullptr)
+        q2.push(temp->left);
+      if (temp->right != nullptr)
+        q2.push(temp->right);
+    }
+    
+    while (!q2.empty()){
+      TreeNode* temp = q2.front();
+      q2.pop();
+      cout << temp->val << endl;
+      if (temp->left != nullptr)
+        q1.push(temp->left);
+      if (temp->right != nullptr)
+        q1.push(temp->right);
+    }
   }
 }
 

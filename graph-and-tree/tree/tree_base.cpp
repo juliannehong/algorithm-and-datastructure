@@ -1,4 +1,3 @@
-// https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
 #include <iostream>
 #include <algorithm> //max
 using namespace std;

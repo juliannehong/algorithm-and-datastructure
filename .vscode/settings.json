@@ -12,6 +12,13 @@
     "deque": "cpp",
     "list": "cpp",
     "string": "cpp",
-    "vector": "cpp"
+    "vector": "cpp",
+    "array": "cpp",
+    "map": "cpp",
+    "queue": "cpp",
+    "set": "cpp",
+    "stack": "cpp",
+    "string_view": "cpp",
+    "unordered_map": "cpp"
   }
 }
