@@ -78,12 +78,24 @@ void quick_sort(vector<int>& v, int l, int r){
   }
 }
 
+void test_sort(vector<int>& nums) {
+  for (int i = 1; i < nums.size(); i++) {
+    int sorted = i - 1;
+    int current = nums[i];
+    while (nums[sorted] >= current) {
+      nums[sorted + 1] = nums[sorted--];
+    }
+    nums[sorted] = current;
+  }
+}
+
 // 4. heap sort
 
 int main(){
   vector<int> test {9,5,3,6,2,4,1};
-  insertion_sort(test);
+  test_sort(test);
   for (auto elem : test)
     cout << elem << endl;
+  system("pause");
   return 0;
 }
