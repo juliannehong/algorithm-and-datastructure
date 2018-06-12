@@ -8,18 +8,16 @@ struct ListNode {
   ListNode(int x) : val(x), next(nullptr) {}
 };
 
-ListNode* reverse_list(ListNode* head) {
 
-  ListNode* prev_node = nullptr;
-  ListNode* curr_node = head;
-
-  while (curr_node != nullptr) {
-    ListNode* next_node = curr_node->next;
-    curr_node->next = prev_node;
-    prev_node = curr_node;
-    curr_node = next_node;
+ListNode* reverse_list(ListNode* head){
+  ListNode* prev = nullptr;
+  while (head != nullptr){
+    ListNode* forward = head->next;
+    head->next = prev;
+    prev = head;
+    head = forward;  
   }
-  return prev_node;
+  return head;
 }
 
 void print_linkedlist(ListNode* head) {

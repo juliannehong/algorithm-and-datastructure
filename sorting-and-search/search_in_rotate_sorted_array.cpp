@@ -1,73 +1,52 @@
 // https://leetcode.com/problems/search-in-rotated-sorted-array/description/
-// NOT DONE
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
-// Input: nums = [4,5,6,7,0,1,2], target = 0
-// Output: 4
-
-// Input: nums = [4,5,6,7,0,1,2], target = 3
-// Output: -1
-
-int bsearch_iterative(vector<int>& nums, int target){
-  int l = 0, u = nums.size() - 1;
-  while (l <= u){
-    int m = l + (u - l) / 2;
-    if (target == nums[m])
-      return m;
-    else if (target < nums[m])
-      u = m-1;
-    else 
-      l = m+1;
+int search_helper(const vector<int>& nums, int target, int left, int right){
+  if (left > right)
+    return -1;
+  int mid = left + (right - left)/2;
+  if (nums[mid] == target) 
+    return mid;
+  if (nums[mid] > nums[right] && nums[mid] > nums[left]){ // pivot on the right side
+    if (target <= nums[right] || target > nums[mid]) // target on the right side
+      return search_helper(nums, target, mid + 1, right);
+    else // target on the left side
+      return search_helper(nums, target, left, mid - 1);
   }
-  return -1;
+  else if (nums[mid] < nums[left] && nums[mid] < nums[right]){ // pivot on the left side or on mid
+    if (target < nums[mid] || target > nums[right])
+      return search_helper(nums, target, left, mid - 1); // target must be left
+    else  // target must be right
+      return search_helper(nums, target, mid + 1, right);
+  }
+  else{ // regular binary search
+    if (target < nums[mid])
+      return search_helper(nums, target, left, mid - 1);
+    else
+      return search_helper(nums, target, mid + 1, right);
+  }
 }
 
-// [9,10,1,2,3,4,5,6,7];
-// [4,5,6,7,9,10,1,2,3]
-// 4,5,6,7,0,1,2
-// 15,17,69,5,7,9,10,11,12,13,
-// 15,17,69,5,7,9,10,11,12,13,14
 int search(const vector<int>& nums, int target){
-  int l = 0, u = nums.size() - 1;
-  while (l <= u){
-    int m = l + (u - l) / 2;
-    if (nums[m] == target)
-      return m;
-    if (nums[m] < nums[u]){ // pivot should be left
-      if (nums[u] >= target && target > nums[m]){ // target must be right
-        l = m+1;
-      }
-      else{ // target must be right
-        u = m-1;
-      }
-    }
-    else { // pivot should be right
-      if (nums[l] <= target && target < nums[m]){ //target must be left
-        u = m-1;
-      } 
-      else{ // target must be right
-        l = m+1;
-      }
-    }
-  }
-  return -1;
+  return search_helper(nums, target, 0, nums.size() - 1);
 }
 
+int main(){
+  vector<int> nums{4,6,8,9,1,2,3};
+  vector<int> test1{4,5,6,7,8,1,2,3};
 
-
- int main(){
-   vector<int> nums1 {4,5,6,7,0,1,2};
-   vector<int> nums2 {15,17,69,5,7,9,10,11,12,13,14};
-  //  cout << search(nums1, 0) << endl;
-  //  cout << search(nums1, 7) << endl;
-  //  cout << search(nums1, 8) << endl;
-   cout << search(nums2, 69) << endl; // 2
-   cout << search(nums2, 14) << endl; // 11
-   cout << search(nums2, 15) << endl; // 0
-   cout << search(nums2, 10) << endl; // 7
-   cout << search(nums2, 16) << endl; // -1
-   cout << search(nums2, 8) << endl; // -1 
-   return 0;
- }
+  vector<int> test{5,1,3};
+  cout << search(test1, 8) << endl;
+  // cout << search(nums, 4) << endl;
+  // cout << search(nums, 6) << endl;
+  // cout << search(nums, 8) << endl;
+  // cout << search(nums, 9) << endl;
+  // cout << search(nums, 1) << endl;
+  // cout << search(nums, 2) << endl;
+  // cout << search(nums, 3) << endl;
+  // cout << search(nums, 5) << endl;
+  return 0;
+}

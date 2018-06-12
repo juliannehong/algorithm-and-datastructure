@@ -19,6 +19,13 @@
     "set": "cpp",
     "stack": "cpp",
     "string_view": "cpp",
-    "unordered_map": "cpp"
+    "unordered_map": "cpp",
+    "__bit_reference": "cpp",
+    "__hash_table": "cpp",
+    "__string": "cpp",
+    "__tree": "cpp",
+    "bitset": "cpp",
+    "initializer_list": "cpp",
+    "utility": "cpp"
   }
 }
