@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <queue>
 using namespace std;
 
 struct TreeNode {
@@ -11,28 +12,16 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-bool is_valid_BST(TreeNode* root) {
+bool valid_bst_helper(TreeNode* root, int min, int max){
   if (root == nullptr)
     return true;
-  if (root->left == nullptr || root->right == nullptr)
-    return true;
-  else if (root->val > root->left->val && root->val < root->right->val){
-    return (is_valid_BST(root->left) && is_valid_BST(root->right));
-  }
-  else{
+  
+  if (root->val < max && root->val > min)
+    return valid_bst_helper(root->left, min, root->val) && valid_bst_helper(root->right, root->val, max);
+  else
     return false;
-  }
 }
 
-int main(){
-  TreeNode* root = new TreeNode(5);
-  root->left = new TreeNode(3);
-  root->left->left = new TreeNode(2);
-  root->left->right = new TreeNode(4);
-  root->right = new TreeNode(6);
-  root->right->right = new TreeNode(7);
-  
-  cout << is_valid_BST(root) << endl;
-  
-  return 0;
+bool valid_bst(TreeNode* root){
+  return valid_bst_helper(root, INT_MIN, INT_MAX);
 }

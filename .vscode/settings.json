@@ -5,6 +5,20 @@
     "algorithm": "cpp",
     "unordered_set": "cpp",
     "ostream": "cpp",
-    "ios": "cpp"
+    "ios": "cpp",
+    "iterator": "cpp",
+    "ratio": "cpp",
+    "__split_buffer": "cpp",
+    "deque": "cpp",
+    "list": "cpp",
+    "string": "cpp",
+    "vector": "cpp",
+    "array": "cpp",
+    "map": "cpp",
+    "queue": "cpp",
+    "set": "cpp",
+    "stack": "cpp",
+    "string_view": "cpp",
+    "unordered_map": "cpp"
   }
 }
