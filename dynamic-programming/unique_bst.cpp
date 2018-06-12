@@ -1,32 +1,42 @@
-#include <iostream>
+// https://leetcode.com/problems/unique-binary-search-trees-ii/description/
 #include <vector>
+#include <iostream>
 using namespace std;
 
-struct Node {
-  int data;
-  Node* left;
-  Node* right;
+struct TreeNode {
+  int val;
+  TreeNode* left;
+  TreeNode* right;
+  TreeNode (int n) : val(n), left(nullptr), right(nullptr) {}
 };
 
-Node* copy_tree(Node* tree){
-  return tree ? new Node{tree->data, copy_tree(tree->left), copy_tree(tree->right)} : nullptr;
-}
-
-vector<Node*> get_trees(int n){
-  vector<Node*> re;
-  // base case 
-  if (n == 0)
-    re.push_back(nullptr);
-
-  for (int left_node = 0; left_node < n; ++left_node){
-    int right_node = n - left_node;
-    auto left_subtrees(get_trees(left_node));
-    auto right_subtrees(get_trees(right_node));
-    for (auto left_tree : left_subtrees){
-      for (auto right_tree : right_subtrees){
-        re.push_back(new Node{0, copy_tree(left_tree), copy_tree(right_tree)});
+vector<TreeNode*> generate_trees_helper(int low, int up){
+  vector<TreeNode*> result;
+  if (low > up)
+    result.push_back(nullptr);
+  for (int i = low; i <= up; i++){
+    vector<TreeNode*> left_subs = generate_trees_helper(low, i - 1);
+    vector<TreeNode*> right_subs = generate_trees_helper(i + 1, up);
+    for (auto left_s : left_subs){
+      for (auto right_s : right_subs){
+        TreeNode* root = new TreeNode(i);
+        root->left = left_s;
+        root->right = right_s;
+        result.push_back(root);
       }
     }
   }
-  return re;
+  return result;
+}
+
+vector<TreeNode*> generate_trees(int n){
+
+  return generate_trees_helper(1, n);
+}
+
+int main(){
+  auto trees = generate_trees(4);
+  cout << trees.size() << endl;
+
+  return 0;
 }
