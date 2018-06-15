@@ -28,6 +28,8 @@
     "initializer_list": "cpp",
     "utility": "cpp",
     "__functional_03": "cpp",
-    "functional": "cpp"
-  }
+    "functional": "cpp",
+    "memory": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "Disabled"
 }
